@@ -103,9 +103,6 @@ loom {
 			if (playerUuid != null && pathToSpongeMixin.toString() != "none") {
 				config.programArgs("--uuid", playerUuid.toString())
 			}
-			if (playerUuid != null && pathToSpongeMixin.toString() != "none") {
-				config.programArgs("--uuid", playerUuid.toString())
-			}
 			if (quickPlay != null && quickPlay.toString() != "none") {
 				config.programArgs("--quickPlaySingleplayer", quickPlay.toString())
 			}

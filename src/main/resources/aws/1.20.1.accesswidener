@@ -1,2 +1,5 @@
 accessWidener v2 named
 # 1.20.1 AW
+
+accessible field net/minecraft/potion/Potion baseName Ljava/lang/String;
+accessible method net/minecraft/client/particle/SpellParticle <init> (Lnet/minecraft/client/world/ClientWorld;DDDDDDLnet/minecraft/client/particle/SpriteProvider;)V
