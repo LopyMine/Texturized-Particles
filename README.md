@@ -5,3 +5,8 @@
 Texturized Particles is a simple visual client-side Fabric mod that adds unique textured particles for every effect in vanilla Minecraft! Also works in multiplayer ^^
 
 <img src="img/banner.webp" width="800px" alt="Banner"/>
+
+## ✨ Particles
+Here you can see all unique particles for each effect:
+
+<img src="img/particles.png" width="800px" alt="Effets"/>
