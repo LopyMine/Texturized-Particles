@@ -9,4 +9,4 @@ Texturized Particles is a simple visual client-side Fabric mod that adds unique 
 ## ✨ Particles
 Here you can see all unique particles for each effect:
 
-<img src="img/particles.png" width="800px" alt="Effets"/>
+<img src="img/particles.png" width="800px" alt="Effects"/>
