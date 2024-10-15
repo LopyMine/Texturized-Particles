@@ -1,0 +1,13 @@
+{
+	"modmenu.descriptionTranslation.texturized-particles": "Visual Fabric Mod that adds unique textured particles for every effect in vanilla Minecraft!",
+	"texturized-particles.modmenu.title": "§l${mod_name} Configuration",
+	"texturized-particles.modmenu.no_config_library_screen.message": "You need to install §6§lYet Another Config Lib [YACL]§f to open ${mod_name} Configuration Screen\n\n§a§lOpen §6§lYACL §a§lModrinth page?",
+
+	"texturized-particles.modmenu.category.general.name": "§lGeneral",
+
+	"texturized-particles.modmenu.option.mod_enabled.name": "Mod Enabled",
+	"texturized-particles.modmenu.option.mod_enabled.description": "If enabled, each particle of each effect will be replaced with a unique texture; if disabled, won't.",
+
+	"texturized-particles.modmenu.formatter.enabled_or_disabled.true": "Enabled",
+	"texturized-particles.modmenu.formatter.enabled_or_disabled.false": "Disabled"
+}

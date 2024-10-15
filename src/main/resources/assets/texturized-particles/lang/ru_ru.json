@@ -1,0 +1,13 @@
+{
+	"modmenu.descriptionTranslation.texturized-particles": "Визуальный Fabric Мод, который добавляет уникальные текстурированные частицы для всех эффектов в ванильном Minecraft!",
+	"texturized-particles.modmenu.title": "§lКонфигурация ${mod_name}",
+	"texturized-particles.modmenu.no_config_library_screen.message": "Вам необходимо установить §6§lYet Another Config Lib [YACL]§f, чтобы открыть экран конфигурации ${mod_name} \n\n§a§lОткрыть страницу §6§lYACL §a§lна Modrinth?",
+
+	"texturized-particles.modmenu.category.general.name": "§lОсновное",
+
+	"texturized-particles.modmenu.option.mod_enabled.name": "Включить мод",
+	"texturized-particles.modmenu.option.mod_enabled.description": "Если мод включён, то каждый партикл каждого эффекта получит свою уникальную текстуру; если отключён, все партиклы всех эффектов будут иметь стандартную тектуру.",
+
+	"texturized-particles.modmenu.formatter.enabled_or_disabled.true": "Включено",
+	"texturized-particles.modmenu.formatter.enabled_or_disabled.false": "Отключено"
+}
