@@ -442,7 +442,7 @@ def getVerifiedOrDefaultJar(String modName, String modVersion, String minecraftV
 	def regularFile = provider.orNull
 	if (regularFile == null || !regularFile.getAsFile().exists()) {
 		println "[PublishMods] Failed to find jar file at '${path}'! Using archive file!"
-		return jar.archiveFile
+		return remapJar.archiveFile
 	}
 	return regularFile.getAsFile()
 }
