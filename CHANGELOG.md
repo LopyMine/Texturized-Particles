@@ -1,5 +1,4 @@
-- Added pizza (with pineapples)
-- Removed Herobrine
-- Added little mob which will hunting for you everywhere
-- Bumped to every minecraft version from INDEV to 1.21
-- Little fixes
+# 1.0.1 Update
+- Added support 1.20.2-3
+- Fixed texture of trial omen particle effect
+- Fixed some crashes

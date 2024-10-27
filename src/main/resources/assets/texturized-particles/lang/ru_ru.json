@@ -1,5 +1,5 @@
 {
-	"modmenu.descriptionTranslation.texturized-particles": "Визуальный мод для Fabric, который добавляет уникальные текстурированные частицы для всех эффектов в ванильном Minecraft!",
+	"modmenu.descriptionTranslation.texturized-particles": "Визуальный Fabric мод, который добавляет уникальные текстурированные частицы для всех эффектов в ванильном Minecraft!",
 	"texturized-particles.modmenu.title": "§lКонфигурация ${mod_name}",
 	"texturized-particles.modmenu.no_config_library_screen.message": "Вам необходимо установить §6§lYet Another Config Lib [YACL]§f, чтобы открыть экран конфигурации ${mod_name} \n\n§a§lОткрыть страницу §6§lYACL §a§lна Modrinth?",
 
