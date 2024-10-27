@@ -8,7 +8,8 @@
         "${mod_authors}"
     ],
     "contact": {
-        "issues": "https://discord.com/invite/NZzxdkrV4s"
+	    "homepage": "https://modrinth.com/mod/${mod_id}",
+	    "issues": "https://github.com/LopyMine/${mod_id}"
     },
     "license": "${mod_license}",
     "icon": "icon/icon.png",
