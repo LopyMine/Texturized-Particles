@@ -382,10 +382,20 @@ MultiVersion getCurrentMultiVersion(String minecraftVersion) {
 			if (supportedVersionsString.contains("-")) {
 				def supportedVersions = supportedVersionsString.split("-")
 				return new MultiVersion(projectVersion: minecraftVersion, minVersion: supportedVersions[0], maxVersion: supportedVersions[1])
+			} else if (supportedVersionsString.contains(".")) {
+				return new MultiVersion(projectVersion: minecraftVersion, minVersion: minecraftVersion, maxVersion: supportedVersionsString)
+			} else {
+				def a = project.indexOf(".")
+				def i = project.lastIndexOf(".")
+				if (a == i) {
+					i = project.length()
+				}
+				def p = project.substring(0, i)
+				def supportedMaxVersion = "${p}.${supportedVersionsString}"
+				println "aaa" + supportedMaxVersion
+				return new MultiVersion(projectVersion: minecraftVersion, minVersion: minecraftVersion, maxVersion: supportedMaxVersion)
 			}
-			return new MultiVersion(projectVersion: minecraftVersion, minVersion: minecraftVersion, maxVersion: supportedVersionsString)
 		}
-
 	}
 	return new MultiVersion(projectVersion: minecraftVersion, minVersion: minecraftVersion, maxVersion: minecraftVersion)
 }
@@ -403,10 +413,27 @@ class MultiVersion {
 	}
 
 	String toVersionRange() {
-		if (minVersion != maxVersion) {
-			return "${minVersion}-${maxVersion}"
+		if (minVersion == maxVersion) {
+			return maxVersion
 		}
-		return maxVersion
+		def aMin = minVersion.indexOf(".")
+		def bMin = minVersion.lastIndexOf(".")
+		if (aMin == bMin) {
+			bMin = minVersion.length()
+		}
+		def minMain = minVersion.substring(0, bMin)
+
+		def aMax = maxVersion.indexOf(".")
+		def bMax = maxVersion.lastIndexOf(".")
+		if (aMax == bMax) {
+			bMax = maxVersion.length()
+		}
+		def maxMain = maxVersion.substring(0, bMax)
+		def maxMinor = maxVersion.substring(bMax+1, maxVersion.length())
+		if (minMain == maxMain) {
+			return "${minVersion}-${maxMinor}"
+		}
+		return "${minVersion}-${maxVersion}"
 	}
 }
 
