@@ -392,7 +392,6 @@ MultiVersion getCurrentMultiVersion(String minecraftVersion) {
 				}
 				def p = project.substring(0, i)
 				def supportedMaxVersion = "${p}.${supportedVersionsString}"
-				println "aaa" + supportedMaxVersion
 				return new MultiVersion(projectVersion: minecraftVersion, minVersion: minecraftVersion, maxVersion: supportedMaxVersion)
 			}
 		}
@@ -449,7 +448,7 @@ def getVerifiedOrDefaultJar(String modName, String modVersion, String minecraftV
 }
 
 String getChangeLog() {
-	def file = project.rootProject.file("publish/CHANGELOG.md")
+	def file = project.rootProject.file("CHANGELOG.md")
 	if (file.exists()) {
 		def text = file.getText()
 		if (!text.isBlank()) {
