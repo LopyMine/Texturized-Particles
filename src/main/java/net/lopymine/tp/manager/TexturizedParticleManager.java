@@ -1,5 +1,10 @@
 package net.lopymine.tp.manager;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.sugar.*;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.entity.effect.*;
 import net.minecraft.particle.*;
 import net.minecraft.potion.Potion;
@@ -15,8 +20,9 @@ import net.lopymine.tp.particle.TexturizedParticle;
 import net.lopymine.tp.utils.*;
 import java.util.*;
 import java.util.stream.*;
+import net.minecraft.world.World;
 
-//? =1.21
+//? >=1.21
 import net.minecraft.registry.entry.RegistryEntry;
 
 import org.jetbrains.annotations.Nullable;
@@ -86,7 +92,14 @@ public class TexturizedParticleManager {
 
 			List<ParticleEffect> particleEffects = effects.stream()
 					.map(StatusEffectInstance::getEffectType)
-					.map((effect) -> ((TPStatusEffect) effect).texturizedParticles$getParticleEffect())
+					.flatMap((effect) -> {
+						ParticleEffect particleEffect = ((TPStatusEffect) effect).texturizedParticles$getParticleEffect();
+						if (particleEffect == null) {
+							TexturizedParticlesClient.LOGGER.error("[DEV/Potion Registration] Looks like {} effect (from potion with color {}) doesn't have textured particle, this shouldn't happen! Skipping it registration.", color, effect.getName().getString());
+							return Stream.empty();
+						}
+						return Stream.of(particleEffect);
+					})
 					.toList();
 
 			*///?} else {
@@ -100,7 +113,14 @@ public class TexturizedParticleManager {
 			List<ParticleEffect> particleEffects = effects.stream()
 					.map(StatusEffectInstance::getEffectType)
 					.map(RegistryEntry::value)
-					.map((effect) -> ((TPStatusEffect) effect).texturizedParticles$getParticleEffect())
+					.flatMap((effect) -> {
+						ParticleEffect particleEffect = ((TPStatusEffect) effect).texturizedParticles$getParticleEffect();
+						if (particleEffect == null) {
+							TexturizedParticlesClient.LOGGER.error("[DEV/Potion Registration] Looks like {} effect with color {} doesn't have textured particle, this shouldn't happen! Skipping it registration.", color, effect.getName().getString());
+							return Stream.empty();
+						}
+						return Stream.of(particleEffect);
+					})
 					.toList();
 			//?}
 
@@ -124,9 +144,14 @@ public class TexturizedParticleManager {
 			// WE SET PARTICLE EFFECT(AND TYPE) AT FIRST PHASE
 			// WHEN WE REGISTERED NEW PARTICLE TYPE
 
+			if (particleEffect == null) {
+				TexturizedParticlesClient.LOGGER.error("[DEV/Effect Registration] Looks like {} effect with color {} doesn't have textured particle, this shouldn't happen! Skipping it registration.", color, statusEffect.getName().getString());
+				continue;
+			}
+
 			List<ParticleEffect> effects = COLOR_TO_PARTICLES_MAP.get(color);
 			if (effects != null) {
-				TexturizedParticlesClient.LOGGER.warn("[DEV] Found registered effects for color {} from {} effect, skipping it registration.", color, statusEffect.getName().getString());
+				TexturizedParticlesClient.LOGGER.warn("[DEV/Effect Registration] Found registered effects for color {} from {} effect, skipping it registration. If you just mod user, ignore it.", color, statusEffect.getName().getString());
 			} else {
 				COLOR_TO_PARTICLES_MAP.put(color, List.of(particleEffect));
 			}
@@ -135,11 +160,9 @@ public class TexturizedParticleManager {
 
 	public static void onInitializeClient() {
 		for (ParticleEffect type : REGISTERED_PARTICLE_TYPES) {
-			ParticleFactoryRegistry.getInstance().register((/*? =1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/) type, TexturizedParticle.BasedFactory::new);
+			ParticleFactoryRegistry.getInstance().register((/*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/) type, TexturizedParticle.BasedFactory::new);
 		}
 	}
-
-
 
 	private static HashMap<ParticleEffect, StatusEffect> getMinecraftEffectWidthTexturizedParticles() {
 		//? =1.20.1 {
@@ -160,5 +183,41 @@ public class TexturizedParticleManager {
 
 	public static StatusEffect getVanillaStatusEffectByStatusEffect(ParticleEffect parameters) {
 		return MINECRAFT_EFFECTS_WITH_TEXTURIZED_PARTICLE.get(parameters);
+	}
+
+	public static void processSplashPotionStageOne(LocalRef<List<ParticleEffect>> localParticleEffects, int color) {
+		localParticleEffects.set(null);
+
+		if (!TexturizedParticlesClient.getConfig().isModEnabled()) {
+			return;
+		}
+
+		List<ParticleEffect> list = TexturizedParticleManager.getParticleEffects(ArgbUtils.getColorWithoutAlpha(color));
+		if (list == null) {
+			return;
+		}
+
+		localParticleEffects.set(list);
+	}
+
+	public static Particle processSplashPotionStageTwo(@Nullable World world, WorldRenderer instance, ParticleEffect parameters, boolean alwaysSpawn, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Particle> original, LocalRef<List<ParticleEffect>> localParticleEffects, int color) {
+		if (!TexturizedParticlesClient.getConfig().isModEnabled()) {
+			return original.call(instance, parameters, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ);
+		}
+
+		List<ParticleEffect> list = localParticleEffects.get();
+		if (list == null || world == null) {
+			return original.call(instance, parameters, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ);
+		}
+		ParticleEffect particleEffect = ListUtils.getRandomElement(list, world.getRandom());
+		if (particleEffect == null) {
+			return original.call(instance, parameters, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ);
+		}
+		//? =1.20.1 {
+		/*((TPType) particleEffect).texturizedParticles$setColor(-1);
+		 *///?} else {
+		((TPType) particleEffect).texturizedParticles$setColor(color);
+		//?}
+		return original.call(instance, particleEffect, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ);
 	}
 }

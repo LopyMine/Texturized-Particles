@@ -36,6 +36,10 @@ public abstract class LivingEntityMixin {
 		}
 
 		StatusEffect statusEffect = ListUtils.getRandomElement(effects.stream().toList(), this.getRandom());
+		if (statusEffect == null) {
+			return;
+		}
+
 		int color = statusEffect.getColor();
 
 		double red = Argb.getRed(color) / 255.0;

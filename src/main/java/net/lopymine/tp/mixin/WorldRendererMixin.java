@@ -4,14 +4,11 @@ import com.llamalad7.mixinextras.injector.wrapoperation.*;
 import com.llamalad7.mixinextras.sugar.*;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 
-
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.particle.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ColorHelper.Argb;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -22,6 +19,12 @@ import net.lopymine.tp.utils.*;
 import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
+//? >=1.21
+import net.minecraft.entity.effect.StatusEffect;
+
+//? =1.20.1
+/*import net.minecraft.util.math.ColorHelper.Argb;*/
+
 @Debug(export = true)
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
@@ -30,43 +33,19 @@ public class WorldRendererMixin {
 	@Nullable
 	private ClientWorld world;
 
+	//? <=1.21.1 {
 	// SPLASH POTION
 	@Inject(method = "processWorldEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/Vec3d;ofBottomCenter(Lnet/minecraft/util/math/Vec3i;)Lnet/minecraft/util/math/Vec3d;"))
 	private void modifyParticleEffect(int eventId, BlockPos pos, int data, CallbackInfo ci, @Share("tp_effects") LocalRef<List<ParticleEffect>> localParticleEffects) {
-		localParticleEffects.set(null);
-
-		if (!TexturizedParticlesClient.getConfig().isModEnabled()) {
-			return;
-		}
-
-		List<ParticleEffect> list = TexturizedParticleManager.getParticleEffects(ArgbUtils.getColorWithoutAlpha(data));
-		if (list == null) {
-			return;
-		}
-
-		localParticleEffects.set(list);
+		TexturizedParticleManager.processSplashPotionStageOne(localParticleEffects, data);
 	}
 
 	// SPLASH POTION
 	@WrapOperation(method = "processWorldEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;spawnParticle(Lnet/minecraft/particle/ParticleEffect;ZDDDDDD)Lnet/minecraft/client/particle/Particle;", ordinal = 0))
 	private Particle swapParticles(WorldRenderer instance, ParticleEffect parameters, boolean alwaysSpawn, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Particle> original, @Share("tp_effects") LocalRef<List<ParticleEffect>> localParticleEffects, @Local(argsOnly = true, ordinal = 1) int color) {
-		if (!TexturizedParticlesClient.getConfig().isModEnabled()) {
-			return original.call(instance, parameters, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ);
-		}
-
-		List<ParticleEffect> list = localParticleEffects.get();
-		if (list == null || this.world == null) {
-			return original.call(instance, parameters, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ);
-		}
-		ParticleEffect particleEffect = ListUtils.getRandomElement(list, this.world.getRandom());
-
-		//? =1.20.1 {
-		/*((TPType) particleEffect).texturizedParticles$setColor(-1);
-		*///?} else {
-		((TPType) particleEffect).texturizedParticles$setColor(color);
-		 //?}
-		return original.call(instance, particleEffect, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ);
+		return TexturizedParticleManager.processSplashPotionStageTwo(this.world, instance, parameters, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ, original, localParticleEffects, color);
 	}
+	//?}
 
 	// ENTITY PARTICLES
 	@WrapOperation(method = "addParticle(Lnet/minecraft/particle/ParticleEffect;ZZDDDDDD)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;spawnParticle(Lnet/minecraft/particle/ParticleEffect;ZZDDDDDD)Lnet/minecraft/client/particle/Particle;"))
@@ -101,7 +80,11 @@ public class WorldRendererMixin {
 		if (list == null || this.world == null) {
 			return original.call(instance, parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
 		}
+
 		ParticleEffect particleEffect = ListUtils.getRandomElement(list, this.world.getRandom());
+		if (particleEffect == null) {
+			return original.call(instance, parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
+		}
 
 		((TPType) particleEffect).texturizedParticles$setColor(color);
 		return original.call(instance, particleEffect, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);

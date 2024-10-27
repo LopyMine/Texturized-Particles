@@ -2,10 +2,9 @@ package net.lopymine.tp.particle;
 
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle./*? =1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/;
-import net.minecraft.util.math.ColorHelper.Argb;
+import net.minecraft.particle./*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/;
 
-import net.lopymine.tp.utils.TPType;
+import net.lopymine.tp.utils.*;
 
 public class TexturizedParticle extends SpellParticle {
 
@@ -24,7 +23,7 @@ public class TexturizedParticle extends SpellParticle {
 
 	}
 
-	public static class BasedFactory implements ParticleFactory</*? =1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/> {
+	public static class BasedFactory implements ParticleFactory</*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/> {
 
 		private final SpriteProvider spriteProvider;
 
@@ -32,10 +31,10 @@ public class TexturizedParticle extends SpellParticle {
 			this.spriteProvider = spriteProvider;
 		}
 
-		public Particle createParticle(/*? =1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/ effect, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+		public Particle createParticle(/*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/ effect, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
 			TexturizedParticle texturizedParticle = new TexturizedParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
 			int color = ((TPType) effect).texturizedParticles$getColor();
-			texturizedParticle.setAlpha((float) Argb.getAlpha(color) / 255F);
+			texturizedParticle.setAlpha((float) ArgbUtils.getAlpha(color) / 255F);
 			return texturizedParticle;
 		}
 	}

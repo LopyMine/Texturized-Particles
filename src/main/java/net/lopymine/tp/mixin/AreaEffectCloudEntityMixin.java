@@ -40,11 +40,14 @@ public abstract class AreaEffectCloudEntityMixin extends Entity {
 		//?}
 
 		List<ParticleEffect> list = TexturizedParticleManager.getParticleEffects(ArgbUtils.getColorWithoutAlpha(color));
-		if (list == null) {
+		if (list == null || list.isEmpty()) {
 			return original;
 		}
 
 		ParticleEffect particleEffect = ListUtils.getRandomElement(list, this.getWorld().getRandom());
+		if (particleEffect == null) {
+			return original;
+		}
 
 		//? =1.20.1 {
 		/*((TPType) particleEffect).texturizedParticles$setColor(-1);

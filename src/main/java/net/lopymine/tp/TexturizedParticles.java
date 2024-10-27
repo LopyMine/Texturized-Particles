@@ -25,9 +25,6 @@ public class TexturizedParticles implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("{} Initialized", MOD_NAME);
-
-
-
 		TexturizedParticleManager.onInitialize();
 	}
 }

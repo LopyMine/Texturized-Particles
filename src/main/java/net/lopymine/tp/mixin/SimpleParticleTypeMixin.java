@@ -1,11 +1,11 @@
 package net.lopymine.tp.mixin;
 
-import net.minecraft.particle./*? =1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/;
+import net.minecraft.particle./*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/;
 import org.spongepowered.asm.mixin.*;
 
 import net.lopymine.tp.utils.TPType;
 
-@Mixin(/*? =1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/.class)
+@Mixin(/*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/.class)
 public class SimpleParticleTypeMixin implements TPType {
 
 	@Unique
