@@ -5,11 +5,11 @@
     "compatibilityLevel": "JAVA_${java}",
     "mixins": [],
     "client": [
-	    /*? =1.20.1*/
+	    //? =1.20.1
 	    /*"LivingEntityMixin",*/
-	    /*? >=1.21.2*/
+	    //? >=1.21.2
 	    /*"WorldEventHandlerMixin",*/
-        "WorldRendererMixin",
+	    "WorldRendererMixin",
 	    "AreaEffectCloudEntityMixin",
 	    "StatusEffectMixin",
 	    "SimpleParticleTypeMixin"
