@@ -1,5 +1,5 @@
 accessWidener v2 named
-# 1.21 AW
+# 1.21.4 AW
 
 accessible field net/minecraft/entity/effect/StatusEffect particleFactory Ljava/util/function/Function;
 mutable field net/minecraft/entity/effect/StatusEffect particleFactory Ljava/util/function/Function;

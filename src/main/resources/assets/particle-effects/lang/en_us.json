@@ -1,0 +1,15 @@
+{
+	"modmenu.descriptionTranslation.particle-effects": "Visual Fabric Mod that adds unique textured particles for every effect in vanilla Minecraft!",
+	"particle-effects.modmenu.title": "§l${mod_name} Configuration",
+	"particle-effects.modmenu.no_config_library_screen.message": "You need to install §6§lYet Another Config Lib [YACL]§f to open ${mod_name} Configuration Screen\n\n§a§lOpen §6§lYACL §a§lModrinth page?",
+
+	"particle-effects.modmenu.category.general.name": "§lGeneral",
+
+	"particle-effects.modmenu.option.mod_enabled.name": "Mod Enabled",
+	"particle-effects.modmenu.option.mod_enabled.description": "If enabled, each particle of each effect will be replaced with a unique texture; if disabled, won't.",
+	"particle-effects.modmenu.option.debug_log_enabled.name": "§6Debug Log Enabled",
+	"particle-effects.modmenu.option.debug_log_enabled.description": "If enabled, additional info will be logged to console for debugging; if disabled, won't.",
+
+	"particle-effects.modmenu.formatter.enabled_or_disabled.true": "Enabled",
+	"particle-effects.modmenu.formatter.enabled_or_disabled.false": "Disabled"
+}

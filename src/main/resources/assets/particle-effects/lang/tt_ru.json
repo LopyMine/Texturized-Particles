@@ -1,0 +1,13 @@
+{
+	"modmenu.descriptionTranslation.particle-effects": "Ваниль Minecraft'дагы Һәр тәэсир өчен уникаль текстураланган кисәкчекләрне өсти торган визуаль Fabric моды!",
+	"particle-effects.modmenu.title": "§l${mod_name} көйләүләре",
+	"particle-effects.modmenu.no_config_library_screen.message": "${mod_name} көйләүләре экранын ачу өчен Сезгә §6§lYet Another Config Lib [YACL]§f утыртырга кирәк\n\n§6§lYACL §a§lModrinth битен ачаргамы?",
+
+	"particle-effects.modmenu.category.general.name": "§lТөп",
+
+	"particle-effects.modmenu.option.mod_enabled.name": "Модны кушу",
+	"particle-effects.modmenu.option.mod_enabled.description": "Кушылса, һәр тәэсир һәр кисәкчеге уникаль текстурага үзгәртеләчәк; Сүндерелсә, үзгәртелмәячәк.",
+
+	"particle-effects.modmenu.formatter.enabled_or_disabled.true": "Кушык",
+	"particle-effects.modmenu.formatter.enabled_or_disabled.false": "Сүнек"
+}

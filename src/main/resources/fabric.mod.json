@@ -16,13 +16,13 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "net.lopymine.tp.TexturizedParticles"
+            "net.lopymine.pe.ParticleEffects"
         ],
         "client": [
-            "net.lopymine.tp.client.TexturizedParticlesClient"
+            "net.lopymine.pe.client.ParticleEffectsClient"
         ],
         "modmenu": [
-            "net.lopymine.tp.modmenu.ModMenuIntegration"
+            "net.lopymine.pe.modmenu.ModMenuIntegration"
         ]
     },
     "depends": {

@@ -1,4 +1,4 @@
-# 1.0.1 Update
-- Added support 1.20.2-3
-- Fixed texture of trial omen particle effect
-- Fixed some crashes
+# 1.0.2 Renaming & Fixes
+- Renamed Mod, Texturized Particles → Particle Effects
+- Added official support for 1.21.4
+- Fixed textures for Saturation and Instant Health

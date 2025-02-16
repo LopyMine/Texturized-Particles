@@ -1,6 +1,6 @@
 plugins {
 	id("fabric-loom") version "1.8-SNAPSHOT"
-	id("dev.kikugie.j52j") version "1.0.2"
+	id("dev.kikugie.j52j") version "2.0"
 	id("me.modmuss50.mod-publish-plugin") version "0.7.4"
 }
 
@@ -26,7 +26,9 @@ version = "${modVersion}+${currentMultiVersion.projectVersion}"
 group = modMavenGroup
 
 j52j {
-	sources(sourceSets["main"])
+	params {
+		prettyPrinting = true
+	}
 }
 
 base {
@@ -442,7 +444,7 @@ def getVerifiedOrDefaultJar(String modName, String modVersion, String minecraftV
 	def regularFile = provider.orNull
 	if (regularFile == null || !regularFile.getAsFile().exists()) {
 		println "[PublishMods] Failed to find jar file at '${path}'! Using archive file!"
-		return jar.archiveFile
+		return remapJar.archiveFile
 	}
 	return regularFile.getAsFile()
 }

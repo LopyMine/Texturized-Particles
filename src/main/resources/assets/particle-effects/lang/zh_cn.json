@@ -1,0 +1,13 @@
+{
+	"modmenu.descriptionTranslation.particle-effects": "一个为原版Minecraft中每个效果添加独特纹理粒子的视觉Fabric模组！",
+	"particle-effects.modmenu.title": "§l${mod_name} 配置",
+	"particle-effects.modmenu.no_config_library_screen.message": "你需要安装 §6§lYet Another Config Lib [YACL]§f 才能打开 ${mod_name} 配置界面\n\n§a§l打开 §6§lYACL §a§lModrinth 页面？",
+
+	"particle-effects.modmenu.category.general.name": "§l通用",
+
+	"particle-effects.modmenu.option.mod_enabled.name": "模组启用",
+	"particle-effects.modmenu.option.mod_enabled.description": "启用时，每个效果的粒子将被独特的纹理替换；禁用时则不会。",
+
+	"particle-effects.modmenu.formatter.enabled_or_disabled.true": "已启用",
+	"particle-effects.modmenu.formatter.enabled_or_disabled.false": "已禁用"
+}
